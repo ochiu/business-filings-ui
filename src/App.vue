@@ -477,31 +477,11 @@ export default {
           throw new Error('Invalid tasks')
         }
       }
-      // FUTURE: update this when API returns New Incorporation task (#3102)
+      // Set state and tasks if this is an NR
       if (this.nrNumber) {
         if (tasks) {
-          // if we have existing tasks, use them
-          if (tasks.length > 0) {
-            this.setTasks(tasks)
-            this.setEntityStatus(EntityStatus.INCORPORATION_APPLICATION)
-          } else {
-            // otherwise create a New Incorporation task
-            tasks.push({
-              enabled: true,
-              order: 1,
-              task: {
-                todo: {
-                  nameRequest: this.nameRequest,
-                  header: {
-                    name: FilingTypes.NAME_REQUEST,
-                    status: FilingStatus.NEW
-                  }
-                }
-              }
-            })
-            this.setTasks(tasks)
-            this.setEntityStatus(EntityStatus.NAME_REQUEST)
-          }
+          this.setTasks(tasks)
+          this.setEntityStatus(EntityStatus.INCORPORATION_APPLICATION)
         } else {
           throw new Error('Invalid tasks')
         }
